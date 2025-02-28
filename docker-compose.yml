@@ -5,7 +5,7 @@ services:
     environment:
       - PUID=996
       - PGID=988
-      - TZ=Etc/America/New_York
+      - TZ=America/New_York
       - MONGO_USER=unifi
       - MONGO_PASS=unifimongopass
       - MONGO_HOST=unifi-db
@@ -38,7 +38,7 @@ services:
     environment:
       - PUID=996
       - PGID=988
-      - TZ=Etc/America/New_York
+      - TZ=America/New_York
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=rootpasswd
       - MONGO_USER=unifi
