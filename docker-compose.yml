@@ -2,7 +2,7 @@ networks:
   proxy:
     external: true
     name: proxy              # same network NPM container uses
-  unifi-backend:             # private network for app <-> db
+  default:             # private network for app <-> db
     driver: bridge
 
 volumes:
@@ -33,7 +33,7 @@ services:
       - config:/config
     networks:
       - proxy
-      - unifi-backend
+      - default
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- https://127.0.0.1:8443/ --no-check-certificate >/dev/null 2>&1 || exit 1"]
@@ -54,7 +54,7 @@ services:
     volumes:
       - mongo_data:/data/db
     networks:
-      unifi-backend:
+      default:
         aliases:
           - unifi-db    # Apparetly this value is hardcoded somewhere in the unifi-network-application container
     healthcheck:
