@@ -2,7 +2,7 @@ networks:
   proxy:
     external: true
     name: proxy              # same network NPM container uses
-  unifi-backend:             # private network for app <-> db
+  default:             # private network for app <-> db
     driver: bridge
 
 volumes:
@@ -32,7 +32,7 @@ services:
     volumes:
       - config:/config
     networks:
-      - proxy
+      - default
       - unifi-backend
     restart: unless-stopped
     healthcheck:
@@ -54,7 +54,7 @@ services:
     volumes:
       - mongo_data:/data/db
     networks:
-      unifi-backend:
+      default:
         aliases:
           - unifi-db    # Apparetly this value is hardcoded somewhere in the unifi-network-application container
     healthcheck:
