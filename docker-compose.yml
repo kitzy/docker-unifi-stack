@@ -36,9 +36,10 @@ services:
       - default
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- https://127.0.0.1:8443/ --no-check-certificate >/dev/null 2>&1 || exit 1"]
+      test: ["CMD-SHELL", "curl -skfI https://127.0.0.1:8443/ >/dev/null || exit 1"]
       interval: 30s
-      timeout: 5s
+      timeout: 20s        # HTTPS + Java can be slow; 20s avoids false negatives
+      start_period: 180s  # critical: don’t count failures during warm-up/migrations
       retries: 10
 
   mongodb:
